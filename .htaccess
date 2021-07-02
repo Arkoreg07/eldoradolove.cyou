@@ -1,0 +1,30 @@
+Options -Indexes
+DirectoryIndex  index.html index.htm index.shtml index.phtml index.php index.asp index.aspx
+AddDefaultCharset UTF-8
+#RewriteEngine on
+#ErrorDocument 404 http://%{HTTP_HOST}/
+
+#RewriteCond %{REMOTE_HOST} ^*.*
+#RewriteRule ^(.*)$ ^mysubdomain_public_html/$1
+
+#To HTTPS
+#RewriteCond %{ENV:HTTPS} !on
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# With www
+#RewriteCond %{HTTP_HOST} ^(.*)$ [NC]
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteRule ^(.*)$ http://www.%1/$1 [R=301,L]
+
+# W/O www
+#RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+#RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+#Subdir
+#RewriteCond %{REQUEST_URI} !/ru/
+#RewriteRule ^(.*)$ http://%{HTTP_HOST}/ru/$1 [L,R=301]
+
+#
+<FilesMatch "\.(php(.*)|htm(.*)|shtml(.*)|phtml(.*)|asp(.*)|aspx(.*))$">
+SetHandler application/x-httpd-php
+</FilesMatch>
